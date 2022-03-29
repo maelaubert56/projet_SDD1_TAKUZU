@@ -2,11 +2,11 @@
 
 
 
-int afficher_matrice_4x4(int M[4][4]){
-    int i,j,size = 4;
-    for(i=0; i<size; i++){
-        for(j=0; j<size; j++){
-            printf("%d\t",M[i][j]);
+void afficher_matrice_4x4(int **p){
+    int size = 4;
+    for(int i=0; i<size; i++){
+        for(int j=0; j<size; j++){
+            printf("%d\t",*(*(p + i) + j));
         }
         printf("\n");
     }
@@ -30,6 +30,7 @@ int main() {
 
 
     int choix =0,continuer=1,choix1=0,choix3=0,taille=0;
+    int** p=(int**)*solution;
     while (continuer ==1) {
         printf("----------------- BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
         printf("Veuillez choisir une option : \n");
@@ -65,7 +66,7 @@ int main() {
                         break;}
                     default :{
                         printf("Autre\n");
-                        afficher_matrice_4x4(solution);
+                        afficher_matrice_4x4(&p);
                         break;}
                 }
                 break;}
