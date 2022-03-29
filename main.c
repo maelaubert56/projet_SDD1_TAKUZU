@@ -1,9 +1,37 @@
 #include <stdio.h>
 
+
+
+int afficher_matrice_4x4(int M[4][4]){
+    int i,j,size = 4;
+    for(i=0; i<size; i++){
+        for(j=0; j<size; j++){
+            printf("%d\t",M[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main() {
+    int solution[4][4] = {  {1,0,0,1},
+                            {1,0,1,0},
+                            {0,1,1,0},
+                            {0,1,0,1}   };
+
+    int masque[4][4] = {    {1,0,0,0},
+                            {0,0,1,0},
+                            {1,0,1,1},
+                            {0,1,0,0}   };
+
+    int jeu[4][4] =    {    {1,0,0,0},
+                            {0,0,1,0},
+                            {1,0,1,1},
+                            {0,1,0,0}   };
+
+
     int choix =0,continuer=1,choix1=0,choix3=0,taille=0;
     while (continuer ==1) {
-        printf("-----------------BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
+        printf("----------------- BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
         printf("Veuillez choisir une option : \n");
         printf("1 - R%csoudre une grille \n",130);
         printf("2 - R%csoudre une grille automatiquement \n",130);
@@ -37,6 +65,7 @@ int main() {
                         break;}
                     default :{
                         printf("Autre\n");
+                        afficher_matrice_4x4(solution);
                         break;}
                 }
                 break;}
