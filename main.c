@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 int main() {
-    int choix =0,continuer=1,choix1=0;
+    int choix =0,continuer=1,choix1=0,choix3=0,taille=0;
     while (continuer ==1) {
-        printf("-----------------BIENVENU SUR NOTRE TAKUZU ! ---------------\n");
+        printf("-----------------BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
         printf("Veuillez choisir une option : \n");
         printf("1 - R%csoudre une grille \n",130);
         printf("2 - R%csoudre une grille automatiquement \n",130);
@@ -15,10 +15,10 @@ int main() {
         {
             case 1:{
                 printf("Veuillez choisir une option : \n");
-                printf("1 - Choisir la taille \n",130);
-                printf("2 - Saisir un masque manuellement \n",130);
+                printf("1 - Choisir la taille \n");
+                printf("2 - Saisir un masque manuellement \n");
                 printf("3 - G%cn%crer un masque automatiquement\n",130,130);
-                printf("4 - Jouer \n",130);
+                printf("4 - Jouer \n");
                 printf("==>");
                 scanf("%d",&choix1);
                 switch( choix1 )
@@ -37,7 +37,6 @@ int main() {
                         break;}
                     default :{
                         printf("Autre\n");
-                        continuer=0;
                         break;}
                 }
                 break;}
@@ -45,7 +44,26 @@ int main() {
                 printf("2 - R%csoudre une grille automatiquement \n",130);}
                 break;
             case 3:{
-                printf("3 - G%cn%crer une grille de Takuzu\n",130,130);
+                printf("Choisir la taille de la matrice\nEntrez 4 pour une matrice 4x4\nEntrez 8 pour une matrice 8x8\n");
+                printf("==>");
+                scanf("%d",&taille);
+                printf("Veuillez choisir une option : \n");
+                printf("1 - Afficher l’ensemble des lignes et colonnes valides \n");
+                printf("2 - G%cn%crer une grille de Takuzu\n",130,130);
+                printf("==>");
+                scanf("%d",&choix3);
+                switch( choix3 )
+                {
+                    case 1:{
+                        printf("afficher \n");
+                        break;}
+                    case 2:{
+                        printf("grille \n");}
+                        break;
+                    default :{
+                        printf("Autre\n");
+                        break;}
+                }
                 break;}
             case 4:{
                 continuer=0;
