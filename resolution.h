@@ -2,7 +2,7 @@
 #define PROJET_SDD1_TAKUZU_RESOLUTION_H
 
 
-int resolve_auto(int* *grille_jeu, int size);
+int resolve_auto();
 
 
 

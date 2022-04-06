@@ -2,12 +2,12 @@
 #include "resolution.h"
 #include <stdlib.h>
 #include <string.h>
+# include "affichage.h"
+
 
 //prototypes:
 int menu_resoudre_manuel();
 int menu_generer_grille();
-void afficher_matrice(int **p,int size);
-
 
 
 int main() {
@@ -32,7 +32,7 @@ int main() {
                 break;
             }
             case 2: {
-                resolve_auto(tab,size);
+                resolve_auto();
                 break;
             }
             case 3: {
@@ -156,11 +156,3 @@ int menu_generer_grille(){
 }
 
 // autres fonctions
-void afficher_matrice(int **tab,int size){
-    for(int i=0; i<size; i++){
-        for(int j=0; j<size; j++){
-            printf("%d\t",tab[i][j]);
-        }
-        printf("\n");
-    }
-}
