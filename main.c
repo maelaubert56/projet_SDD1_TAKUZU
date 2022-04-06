@@ -32,7 +32,7 @@ int main() {
                 break;
             }
             case 2: {
-                //resolve_auto(tab,size);
+                resolve_auto(tab,size);
                 break;
             }
             case 3: {
@@ -51,7 +51,6 @@ int main() {
     }
     return 0;
 }
-
 
 
 // fonctions des menus
@@ -161,7 +160,6 @@ void afficher_matrice(int **tab,int size){
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
             printf("%d\t",tab[i][j]);
-            //printf("(%d,%d)",i,j);
         }
         printf("\n");
     }
