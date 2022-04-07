@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "resolution.h"
+#include "resolution_auto.h"
 #include <stdlib.h>
-#include <string.h>
-# include "affichage.h"
+#include "affichage.h"
+#include "resolution.h"
 
 
 //prototypes:
@@ -10,7 +10,7 @@ int menu_resoudre_manuel();
 int menu_generer_grille();
 
 
-int main() {
+int main(){
 
 
 
@@ -55,35 +55,16 @@ int main() {
 
 // fonctions des menus
 int menu_resoudre_manuel() {
-    int solution[4][4] = {  {1,0,0,1},
-                            {1,0,1,0},
-                            {0,1,1,0},
-                            {0,1,0,1}   };
-
-    int masque[4][4] = {    {1,0,0,0},
-                            {0,0,1,0},
-                            {1,0,1,1},
-                            {0,1,0,0}   };
-
-    int jeu[4][4] =    {    {1,-1,-1,-1},
-                            {-1,-1,1,-1},
-                            {0,-1,1,0},
-                            {-1,1,-1,-1}   };
-
-    int size = 4;
-    int **tab = malloc(sizeof(int)*size);
-    for(int i=0; i<size; i++){
-        tab[i] = malloc(sizeof(int)*size);
-        for (int j=0; j<size; j++){
-            tab[i][j]=jeu[i][j];
-        }
-    }
-
-    int choice, continuer = 1;
+    // valeurs par default si le joueur veut lancer directement
+    int choice, continuer = 1, size = 4, num_niveau=1;
+    int** masque = generer_masque(size,num_niveau);
+    char *mode = "auto", *niveau = "facile";
     while (continuer == 1) {
+
         printf("----------------- Resoudre une grille ---------------\n");
+        printf("   Taille : %dx%d\t\tMasque : %s\t\tNiveau : %s\n",size,size, mode, niveau);
         printf("Veuillez choisir une option : \n");
-        printf("\t - Choisir la taille \n");
+        printf("\t1 - Choisir la taille \n");
         printf("\t2 - Saisir un masque manuellement \n");
         printf("\t3 - G%cn%crer un masque automatiquement\n", 130, 130);
         printf("\t4 - Jouer \n");
@@ -92,20 +73,42 @@ int menu_resoudre_manuel() {
         scanf("%d", &choice);
         switch (choice) {
             case 1: {
-                printf("taille \n");
+                printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
+                printf("\t4 -> 4x4\n\t8 -> 8x8\n==>");
+                scanf("%d",&size);
+                generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
                 break;
             }
             case 2: {
-                printf("manuel \n");
-            }
+                mode = "personnalise";
+                printf("------------ Entrez le masque ------------\n");
+                masque = remplir_matrice(size);
+                printf("Votre masque est :\n");
+                afficher_matrice(masque,size);
+                printf("\n");
                 break;
+            }
+
             case 3: {
-                printf("automatique\n");
+                mode = "auto";
+                printf("------------ Generation automatique du masque ------------\n");
+                printf("Entrez le niveau de difficulte : \n\t1 - facile\n\t2 - moyen\n\t3 - difficile\n==>");
+                scanf("%d",&num_niveau);
+                switch(num_niveau){
+                    case 1: niveau = "facile"; break;
+                    case 2: niveau = "moyen"; break;
+                    case 3: niveau = "difficile"; break;
+                }
+
+                printf("Masque genere automatiquement ...\n");
+                masque = generer_masque(size,num_niveau);
+                printf("Votre masque est :\n");
+                afficher_matrice(masque,size);
+                printf("\n");
                 break;
             }
             case 4: {
-                printf("jouer\n");
-                afficher_matrice(tab, 4);
+                resoudre(masque,size);
                 break;
             }
             case 5: {
