@@ -2,9 +2,18 @@
 #include <stdio.h>
 #include "affichage.h"
 
-void afficher_matrice(int **tab,int size){
-    for(int i=0; i<size; i++){
-        for(int j=0; j<size; j++){
+void afficher_matrice(int **tab,int size,int indice){
+    int i,j;
+    if (indice == 1){
+        printf("\t");
+        for(j=0;j<size;j++){
+            printf("%d\t", j);
+        }
+        printf("\n");
+    }
+    for(i=0; i<size; i++){
+        if (indice == 1) printf("%d\t",i);
+        for(j=0; j<size; j++){
             printf("%d\t",tab[i][j]);
         }
         printf("\n");

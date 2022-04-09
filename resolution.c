@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <conio.h>
 
 
 int** generer_masque(int size,int niveau){
@@ -54,7 +55,6 @@ int **remplir_matrice(int size) {
 
 
 void resoudre(int **masque, int size){
-
     int solution[4][4] = {{1, 0, 0, 1},
                           {1, 0, 1, 0},
                           {0, 1, 1, 0},
@@ -72,16 +72,57 @@ void resoudre(int **masque, int size){
         };*/
 
     int **tab_solution = malloc(sizeof(int*)*size);
-    int **tab_masque = malloc(sizeof(int*)*size);
     for(int i=0; i<size; i++){
         tab_solution[i] = malloc(sizeof(int)*size);
-        tab_masque[i] = malloc(sizeof(int)*size);
         for (int j=0; j<size; j++){
             tab_solution[i][j]=solution[i][j];
-            printf("pok\n");
-            tab_masque[i][j]=masque[i][j];
         }
     }
+    int **grille_jeu = appliquer_masque(tab_solution,masque,size);
 
-    afficher_matrice(appliquer_masque(tab_solution,tab_masque,size),size);
+    int gagne = 0, val;
+    COORDS coords;
+    while (gagne != 1){
+        // on choisis une case et une valeur
+        coords = choisir_case(grille_jeu,size);
+        do{
+            printf("\nEntrez la valeur de cette case (0 ou 1): ");
+            scanf("%d",&val);
+        }while (val !=1 && val != 0);
+
+        //on vérifie que cette valeur corresponds à la solution
+        if(val != tab_solution[coords.i][coords.j]) printf("Cette valeur est fausse... ");
+        else grille_jeu[coords.i][coords.j] = val;
+
+        //on regarde si la grille est résolue
+        if (verif_grille(grille_jeu,tab_solution,size) == 1) gagne = 1;
+
+        printf("\n");
+    }
+    printf("Bravo, vous avez resolu la grille:\nAppuyez sur entrer pour continuer:");
+    fflush(stdout);
+    _getch();  // permet de mettre une pause avant de revenir au menu quand l'utilisateur appuie sur une touche.
+    afficher_matrice(grille_jeu,size,0);
+}
+
+
+COORDS choisir_case(int** tab, int size){
+    COORDS coords;
+    afficher_matrice(tab,size,0);
+    do{
+        printf("\nChoisissez la case grace aux indices de 0 a 3 (la colonne puis la ligne) :");
+        scanf("%d %d",&coords.i, &coords.j);
+    }while(tab[coords.i][coords.j]!=-1);
+    printf("\n");
+    return coords;
+}
+
+int verif_grille(int** grille_jeu,int** grille_soluc,int size){
+    int i,j;
+    for(i=0;i<size;i++){
+        for(j=0;j<size;j++){
+            if (grille_jeu[i][j] != grille_soluc[i][j]) return 0;
+        }
+    }
+    return 1;
 }

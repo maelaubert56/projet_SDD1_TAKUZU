@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int ligne_remplie(int x,int** tab, int size);
+int ligne_remplie(int y,int** tab, int size);
 int colonne_remplie(int x,int** tab, int size);
-int test_suite (int x, int y, int** tab, int size);
-int test_autour(int x, int y, int** tab, int size);
+int test_suite (int y, int x, int** tab, int size);
+int test_autour(int y, int x, int** tab, int size);
 int test_case(int y, int x, int** tab, int size);
 
 int resolve_auto(){
@@ -53,7 +53,7 @@ int resolve_auto(){
 
     int state, x=0, y=0;
 
-    afficher_matrice(tab,size);
+    afficher_matrice(tab,size,0);
 
     while (y < size){
         while(x < size){
@@ -63,7 +63,7 @@ int resolve_auto(){
                     tab[y][x] = state;
                     sleep(1);
                     printf("------------------------------------------\n");
-                    afficher_matrice(tab, size);
+                    afficher_matrice(tab, size,0);
 
                     x=0,y=0;
                 }

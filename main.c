@@ -84,7 +84,7 @@ int menu_resoudre_manuel() {
                 printf("------------ Entrez le masque ------------\n");
                 masque = remplir_matrice(size);
                 printf("Votre masque est :\n");
-                afficher_matrice(masque,size);
+                afficher_matrice(masque,size,0);
                 printf("\n");
                 break;
             }
@@ -103,7 +103,7 @@ int menu_resoudre_manuel() {
                 printf("Masque genere automatiquement ...\n");
                 masque = generer_masque(size,num_niveau);
                 printf("Votre masque est :\n");
-                afficher_matrice(masque,size);
+                afficher_matrice(masque,size,0);
                 printf("\n");
                 break;
             }
@@ -154,8 +154,8 @@ int menu_generer_grille(){
                 break;
             }
         }
-        return 0;
     }
+    return 0;
 }
 
 // autres fonctions
