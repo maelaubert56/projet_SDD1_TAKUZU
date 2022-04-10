@@ -1,17 +1,12 @@
 #ifndef PROJET_SDD1_TAKUZU_RESOLUTION_H
 #define PROJET_SDD1_TAKUZU_RESOLUTION_H
 
-typedef struct
-{
-    int i;
-    int j;
-} COORDS ;
 
+#include "test_matrices.h"
 
-void resoudre();
+void resoudre(int **masque, int** solution, int size);
 int **remplir_matrice(int size);
 int** generer_masque(int size,int niveau);
-int verif_grille(int** grille_jeu,int** grille_soluc,int size);
 COORDS choisir_case(int** tab, int size);
 
 #endif //PROJET_SDD1_TAKUZU_RESOLUTION_H

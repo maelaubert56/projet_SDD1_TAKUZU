@@ -4,6 +4,10 @@
 #include "affichage.h"
 #include "resolution.h"
 
+void clrscr(){
+    for(int i;i<40;i++){printf("\n");}
+} //TODO probleme lib <conio.h>, marche chez marius ?
+
 
 //prototypes:
 int menu_resoudre_manuel();
@@ -11,13 +15,10 @@ int menu_generer_grille();
 
 
 int main(){
-
-
-
-
     int choix = 0, continuer = 1;
 
     while (continuer == 1) {
+        clrscr();
         printf("----------------- BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
         printf("Veuillez choisir une option : \n");
         printf("\t1 - R%csoudre une grille \n", 130);
@@ -55,31 +56,59 @@ int main(){
 
 // fonctions des menus
 int menu_resoudre_manuel() {
+
     // valeurs par default si le joueur veut lancer directement
     int choice, continuer = 1, size = 4, num_niveau=1;
     int** masque = generer_masque(size,num_niveau);
     char *mode = "auto", *niveau = "facile";
-    while (continuer == 1) {
 
+    printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
+    printf("\t4 -> 4x4\n\t8 -> 8x8\n==>");
+    scanf("%d",&size);
+    generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
+
+
+
+    // TODO tableaux gérérés en dur puis convertis en dynamique pour les tests
+
+    int solution[4][4] = {{1, 0, 0, 1},
+                          {1, 0, 1, 0},
+                          {0, 1, 1, 0},
+                          {0, 1, 0, 1}};
+
+    if (size == 8) {
+        int solution[8][8] = {{0, 1, 0, 1, 1, 0, 0, 1},
+                              {1, 0, 0, 1, 0, 0, 1, 1},
+                              {0, 1, 1, 0, 0, 1, 1, 0},
+                              {1, 1, 0, 0, 1, 1, 0, 0},
+                              {0, 0, 1, 1, 0, 0, 1, 1},
+                              {0, 1, 0, 1, 1, 0, 1, 0},
+                              {1, 0, 1, 0, 1, 1, 0, 0},
+                              {1, 0, 1, 0, 0, 1, 0, 1},
+        };
+    }
+
+    int **tab_solution = malloc(sizeof(int*)*size);
+    for(int i=0; i<size; i++){
+        tab_solution[i] = malloc(sizeof(int)*size);
+        for (int j=0; j<size; j++){
+            tab_solution[i][j]=solution[i][j];
+        }
+    }
+
+    while (continuer == 1) {
         printf("----------------- Resoudre une grille ---------------\n");
         printf("   Taille : %dx%d\t\tMasque : %s\t\tNiveau : %s\n",size,size, mode, niveau);
         printf("Veuillez choisir une option : \n");
-        printf("\t1 - Choisir la taille \n");
-        printf("\t2 - Saisir un masque manuellement \n");
-        printf("\t3 - G%cn%crer un masque automatiquement\n", 130, 130);
-        printf("\t4 - Jouer \n");
-        printf("\t5 - Retour\n");
+        printf("\t1 - Saisir un masque manuellement \n");
+        printf("\t2 - G%cn%crer un masque automatiquement\n", 130, 130);
+        printf("\t3 - Jouer \n");
+        printf("\t4 - Retour\n");
         printf("==>");
         scanf("%d", &choice);
         switch (choice) {
+
             case 1: {
-                printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
-                printf("\t4 -> 4x4\n\t8 -> 8x8\n==>");
-                scanf("%d",&size);
-                generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
-                break;
-            }
-            case 2: {
                 mode = "personnalise";
                 printf("------------ Entrez le masque ------------\n");
                 masque = remplir_matrice(size);
@@ -89,7 +118,7 @@ int menu_resoudre_manuel() {
                 break;
             }
 
-            case 3: {
+            case 2: {
                 mode = "auto";
                 printf("------------ Generation automatique du masque ------------\n");
                 printf("Entrez le niveau de difficulte : \n\t1 - facile\n\t2 - moyen\n\t3 - difficile\n==>");
@@ -107,16 +136,17 @@ int menu_resoudre_manuel() {
                 printf("\n");
                 break;
             }
-            case 4: {
-                resoudre(masque,size);
+            case 3: {
+                resoudre(masque,tab_solution,size);
+                continuer = 0;
                 break;
             }
-            case 5: {
+            case 4: {
                 continuer = 0;
                 break;
             }
             default : {
-                printf("Vous devez entrer une valeur entre 1 et 5...\n");
+                printf("Vous devez entrer une valeur entre 1 et 4...\n");
                 break;
             }
         }
@@ -127,6 +157,7 @@ int menu_resoudre_manuel() {
 int menu_generer_grille(){
     int taille,choice, continuer = 1;
     while (continuer == 1) {
+        clrscr();
         printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n==>");
         scanf("%d", &taille);
         taille*=4;
