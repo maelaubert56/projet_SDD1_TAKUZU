@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include "affichage.h"
 #include "resolution.h"
-
+#include "generateur_grille.h"
+#include <conio.h>
 void clrscr(){
     for(int i;i<40;i++){printf("\n");}
 } //TODO probleme lib <conio.h>, marche chez marius ?
@@ -170,6 +171,7 @@ int menu_generer_grille(){
         switch (choice) {
             case 1: {
                 printf("afficher \n");
+                generer_grille();
                 break;
             }
             case 2: {
