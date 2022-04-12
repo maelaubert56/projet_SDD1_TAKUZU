@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <conio.h>
 #include "test_matrices.h"
 
 
 int resolve_auto(){
-
     // passage de la grille jeu dans un tableau dynamique
     /*
     int size = 4;
@@ -60,7 +60,6 @@ int resolve_auto(){
                     sleep(1);
                     printf("------------------------------------------\n");
                     afficher_matrice(tab, size,0);
-
                     x=0,y=0;
                 }
                 else x++;
@@ -70,7 +69,9 @@ int resolve_auto(){
         y++;
         x=0;
     }
-    printf("\nMatrice resolue ! \n\n");
+    printf("\nMatrice resolue ! \nAppuyez sur entrer pour continuer...");
+    fflush(stdout);
+    _getch();  // permet de mettre une pause avant de revenir au menu quand l'utilisateur appuie sur une touche.
 }
 
 

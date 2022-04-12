@@ -3,7 +3,7 @@
 
 
 #include "test_matrices.h"
-
+void clrscr();
 void resoudre(int **masque, int** solution, int size);
 int **remplir_matrice(int size);
 int** generer_masque(int size,int niveau);

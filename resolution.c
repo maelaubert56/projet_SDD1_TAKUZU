@@ -6,6 +6,9 @@
 #include <conio.h>
 #include "test_matrices.h"
 
+void clrscr(){
+    for(int i=0;i<40;i++){printf("\n");}
+}
 
 int** generer_masque(int size,int niveau){
     int i,j;
@@ -100,21 +103,35 @@ void resoudre(int **masque, int** solution, int size){
         }
         printf("\n");
     }
-    if (vies != 0) printf("Bravo, vous avez resolu la grille !\nAppuyez sur entrer pour continuer...");
-    else printf("Vous avez epuisé vos 3 vies...\nFin de la partie\n\nAppuyez sur entrer pour continuer...");
+    clrscr();
+    if (vies != 0){
+        afficher_matrice(grille_jeu,size,0);
+        printf("Bravo, vous avez resolu la grille !\nAppuyez sur entrer pour continuer...");
+    }
+    else{
+        afficher_matrice(solution,size,0);
+        printf("Vous avez epuisé vos 3 vies...\nFin de la partie\n\nAppuyez sur entrer pour continuer...");
+    }
     fflush(stdout);
     _getch();  // permet de mettre une pause avant de revenir au menu quand l'utilisateur appuie sur une touche.
-    afficher_matrice(grille_jeu,size,0);
+
 }
 
 
 COORDS choisir_case(int** tab, int size){
     COORDS coords;
-    afficher_matrice(tab,size,0);
+    char i;
+    int j;
+
     do{
-        printf("\nChoisissez la case grace aux indices de 0 a 3 (la colonne puis la ligne) :");
-        scanf("%d %d",&coords.i, &coords.j);
+        clrscr();
+        afficher_matrice(tab,size,0);
+        printf("\nChoisissez la case grace aux indices affiches (ex:A2) :");
+        scanf(" %c%d",&i, &j);
+        coords.i = (int)(i)-65;
+        coords.j = j;
     }while(tab[coords.i][coords.j]!=-1);
+
     printf("\n");
     return coords;
 }

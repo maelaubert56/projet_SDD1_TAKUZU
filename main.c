@@ -5,10 +5,6 @@
 #include "resolution.h"
 #include "generateur_grille.h"
 #include <conio.h>
-void clrscr(){
-    for(int i;i<40;i++){printf("\n");}
-} //TODO probleme lib <conio.h>, marche chez marius ?
-
 
 //prototypes:
 int menu_resoudre_manuel();

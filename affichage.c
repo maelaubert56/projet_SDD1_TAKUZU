@@ -1,7 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "affichage.h"
+#include <windows.h>
 
+void color(int t,int f)
+{
+    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,f*16+t);
+}
+
+/*
 void afficher_matrice(int **tab,int size,int indice){
     int i,j;
     if (indice == 1){
@@ -18,6 +26,49 @@ void afficher_matrice(int **tab,int size,int indice){
         }
         printf("\n");
     }
+}*/
+
+void afficher_matrice(int **tab,int size,int indice){
+    int i,j,k;
+    /*printf("----");
+    for(i=0;i<size+1;i++){
+        printf("----");
+    }*/
+    printf("\n    ");
+    for(i=0;i<size;i++){
+
+        printf("|");
+        color(9, 0);
+        printf(" %d ", i);
+        color(0, 0);
+    }
+    printf("|\n----");
+
+    for (k = 0; k < size; k++) {
+        printf("+---");
+    }
+    printf("|\n");
+
+    for(i=0; i<size; i++){
+        color(9, 0);
+        printf("  %c ", 65+i);
+        color(0, 0);
+
+        for(j=0; j<size; j++){
+            if (tab[i][j] == -1) printf("|   ");
+            else printf("| %d ", tab[i][j]);
+        }
+        if(i<size-1) {
+            printf("|\n----");
+
+            for (k = 0; k < size; k++) {
+                printf("+---");
+            }
+            printf("|\n");
+        }
+
+    }
+    printf("|\n\n");
 }
 
 
