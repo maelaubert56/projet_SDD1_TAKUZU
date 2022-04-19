@@ -122,11 +122,10 @@ COORDS choisir_case(int** tab, int size){
     COORDS coords;
     char i;
     int j;
-
+    printf("\n");
     do{
-        clrscr();
         afficher_matrice(tab,size,0);
-        printf("\nChoisissez la case grace aux indices affiches (ex:A2) :");
+        printf("Choisissez la case grace aux indices affiches (ex:A2) :");
         scanf(" %c%d",&i, &j);
         coords.i = (int)(i)-65;
         coords.j = j;

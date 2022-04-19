@@ -34,13 +34,14 @@ void afficher_matrice(int **tab,int size,int indice){
     for(i=0;i<size+1;i++){
         printf("----");
     }*/
+    color(15, 0); // couleur par defaut, fond par defaut
     printf("\n    ");
     for(i=0;i<size;i++){
 
         printf("|");
-        color(9, 0);
+        color(9, 0); // couleur bleu, fond par defaut
         printf(" %d ", i);
-        color(0, 0);
+        color(15, 0);
     }
     printf("|\n----");
 
@@ -52,7 +53,7 @@ void afficher_matrice(int **tab,int size,int indice){
     for(i=0; i<size; i++){
         color(9, 0);
         printf("  %c ", 65+i);
-        color(0, 0);
+        color(15, 0);
 
         for(j=0; j<size; j++){
             if (tab[i][j] == -1) printf("|   ");

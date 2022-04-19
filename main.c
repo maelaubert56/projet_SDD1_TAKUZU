@@ -152,12 +152,12 @@ int menu_resoudre_manuel() {
 }
 
 int menu_generer_grille(){
-    int taille,choice, continuer = 1;
+    int size,choice, continuer = 1;
     while (continuer == 1) {
         clrscr();
         printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n==>");
-        scanf("%d", &taille);
-        taille*=4;
+        scanf("%d", &size);
+        size*=4;
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Afficher l'ensemble des lignes et colonnes valides \n");
         printf("\t2 - G%cn%crer une grille de Takuzu\n", 130, 130);
@@ -166,12 +166,14 @@ int menu_generer_grille(){
         scanf("%d", &choice);
         switch (choice) {
             case 1: {
-                printf("afficher \n");
-                generer_grille();
+                afficher_lignes_valides(size);
+                printf("appuyez sur entrer...");
+                fflush(stdout);
+                _getch();
                 break;
             }
             case 2: {
-                printf("grille \n");
+                generer_grille(size);
             }
                 break;
             case 3:{

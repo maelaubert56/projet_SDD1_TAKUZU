@@ -9,6 +9,8 @@
 
 int resolve_auto(){
     // passage de la grille jeu dans un tableau dynamique
+
+    //faire tableau des matrices
     /*
     int size = 4;
     int jeu[4][4] =    {    {1,-1,-1,-1},
@@ -28,6 +30,7 @@ int resolve_auto(){
             {-1,-1,1,-1,-1,-1,-1,1},
             {-1,-1,-1,0,-1,-1,-1,-1}};
     */
+
     int size = 6;
     int jeu[6][6] = {
             {-1,-1,-1,-1,-1,-1},
@@ -57,7 +60,9 @@ int resolve_auto(){
                 state = test_case(y, x, tab, size);
                 if (state != -1) {
                     tab[y][x] = state;
-                    sleep(1);
+                    printf("Appuyez sur entrer pour continuer ...");
+                    fflush(stdout);
+                    _getch();
                     printf("------------------------------------------\n");
                     afficher_matrice(tab, size,0);
                     x=0,y=0;
