@@ -2,8 +2,6 @@
 #include "affichage.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <conio.h>
 #include "test_matrices.h"
 
 
@@ -60,9 +58,7 @@ int resolve_auto(){
                 state = test_case(y, x, tab, size);
                 if (state != -1) {
                     tab[y][x] = state;
-                    printf("Appuyez sur entrer pour continuer ...");
-                    fflush(stdout);
-                    _getch();
+                    wait_for_enter();
                     printf("------------------------------------------\n");
                     afficher_matrice(tab, size,0);
                     x=0,y=0;
@@ -74,9 +70,8 @@ int resolve_auto(){
         y++;
         x=0;
     }
-    printf("\nMatrice resolue ! \nAppuyez sur entrer pour continuer...");
-    fflush(stdout);
-    _getch();  // permet de mettre une pause avant de revenir au menu quand l'utilisateur appuie sur une touche.
+    printf("\n\tMatrice resolue ! \n");
+    wait_for_enter();
 }
 
 

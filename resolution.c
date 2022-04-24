@@ -5,10 +5,8 @@
 #include <time.h>
 #include <conio.h>
 #include "test_matrices.h"
+#include "fonctions_utilitaires.h"
 
-void clrscr(){
-    for(int i=0;i<40;i++){printf("\n");}
-}
 
 int** generer_masque(int size,int niveau){
     int i,j;
@@ -51,7 +49,7 @@ int **remplir_matrice(int size) {
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
             printf("\nEntrez la valeur pour l'indice %d-%d : ", i, j);
-            scanf("%d",&mat[i][j]);
+            mat[i][j] = saisieint();
         }
     }
     printf("\n");
@@ -72,7 +70,7 @@ void resoudre(int **masque, int** solution, int size){
         coords = choisir_case(grille_jeu,size);
         do{
             printf("\nEntrez la valeur de cette case (0 ou 1):\n");
-            scanf("%d",&val);
+            val = saisieint();
         }while (val !=1 && val != 0);
 
         //on verifie la validité du coup
@@ -103,17 +101,16 @@ void resoudre(int **masque, int** solution, int size){
         }
         printf("\n");
     }
-    clrscr();
+    clear_screen();
     if (vies != 0){
         afficher_matrice(grille_jeu,size,0);
-        printf("Bravo, vous avez resolu la grille !\nAppuyez sur entrer pour continuer...");
+        printf("Bravo, vous avez resolu la grille !\n");
     }
     else{
         afficher_matrice(solution,size,0);
-        printf("Vous avez epuisé vos 3 vies...\nFin de la partie\n\nAppuyez sur entrer pour continuer...");
+        printf("Vous avez epuisé vos 3 vies...\nFin de la partie\n\n");
     }
-    fflush(stdout);
-    _getch();  // permet de mettre une pause avant de revenir au menu quand l'utilisateur appuie sur une touche.
+    wait_for_enter();
 
 }
 
@@ -126,7 +123,7 @@ COORDS choisir_case(int** tab, int size){
     do{
         afficher_matrice(tab,size,0);
         printf("Choisissez la case grace aux indices affiches (ex:A2) :");
-        scanf(" %c%d",&i, &j);
+        scanf(" %c%d",&i, &j);       //TODO saisie sécurisée
         coords.i = (int)(i)-65;
         coords.j = j;
     }while(tab[coords.i][coords.j]!=-1);

@@ -5,6 +5,13 @@
 #include "resolution.h"
 #include "generateur_grille.h"
 #include <conio.h>
+#include "fonctions_utilitaires.h"
+
+#ifdef _WIN32
+    #include <Windows.h>
+#else
+    #include <unistd.h>
+#endif
 
 //prototypes:
 int menu_resoudre_manuel();
@@ -15,7 +22,7 @@ int main(){
     int choix = 0, continuer = 1;
 
     while (continuer == 1) {
-        clrscr();
+        clear_screen();
         printf("----------------- BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
         printf("Veuillez choisir une option : \n");
         printf("\t1 - R%csoudre une grille \n", 130);
@@ -23,7 +30,9 @@ int main(){
         printf("\t3 - G%cn%crer une grille de Takuzu\n", 130, 130);
         printf("\t4 - Quitter le jeu\n");
         printf("==>");
-        scanf("%d", &choix);
+
+        choix = saisieint();
+
         switch (choix) {
             case 1: {
                 menu_resoudre_manuel();
@@ -43,6 +52,7 @@ int main(){
             }
             default : {
                 printf("Vous devez entrer une valeur entre 1 et 5...\n");
+                Sleep(2000);
                 break;
             }
         }
@@ -61,7 +71,11 @@ int menu_resoudre_manuel() {
 
     printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
     printf("\t4 -> 4x4\n\t8 -> 8x8\n==>");
-    scanf("%d",&size);
+    do{
+        size = saisieint();
+    }while(size!=4 && size!=8);
+
+    scanf("%d",&size);     //TODO saisie securisée
     generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
 
 
@@ -102,7 +116,7 @@ int menu_resoudre_manuel() {
         printf("\t3 - Jouer \n");
         printf("\t4 - Retour\n");
         printf("==>");
-        scanf("%d", &choice);
+        choice = saisieint();
         switch (choice) {
 
             case 1: {
@@ -118,12 +132,27 @@ int menu_resoudre_manuel() {
             case 2: {
                 mode = "auto";
                 printf("------------ Generation automatique du masque ------------\n");
-                printf("Entrez le niveau de difficulte : \n\t1 - facile\n\t2 - moyen\n\t3 - difficile\n==>");
-                scanf("%d",&num_niveau);
-                switch(num_niveau){
-                    case 1: niveau = "facile"; break;
-                    case 2: niveau = "moyen"; break;
-                    case 3: niveau = "difficile"; break;
+                int continuer_menu = 1;
+                while(continuer_menu == 1) {
+                    printf("Entrez le niveau de difficulte : \n\t1 - facile\n\t2 - moyen\n\t3 - difficile\n==>");
+                    num_niveau = saisieint();
+                    switch (num_niveau) {
+                        case 1:
+                            niveau = "facile";
+                            continuer_menu = 0;
+                            break;
+                        case 2:
+                            niveau = "moyen";
+                            continuer_menu = 0;
+                            break;
+                        case 3:
+                            niveau = "difficile";
+                            continuer_menu = 0;
+                            break;
+                        default:
+                            printf("Vous devez entre un chiffre entre 1 et 3...");
+                            break;
+                    }
                 }
 
                 printf("Masque genere automatiquement ...\n");
@@ -154,7 +183,7 @@ int menu_resoudre_manuel() {
 int menu_generer_grille(){
     int size,choice, continuer = 1;
     while (continuer == 1) {
-        clrscr();
+        clear_screen();
         printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n==>");
         scanf("%d", &size);
         size*=4;
@@ -163,13 +192,11 @@ int menu_generer_grille(){
         printf("\t2 - G%cn%crer une grille de Takuzu\n", 130, 130);
         printf("\t3 - Retour\n");
         printf("==>");
-        scanf("%d", &choice);
+        choice = saisieint();
         switch (choice) {
             case 1: {
                 afficher_lignes_valides(size);
-                printf("appuyez sur entrer...");
-                fflush(stdout);
-                _getch();
+                wait_for_enter()
                 break;
             }
             case 2: {
