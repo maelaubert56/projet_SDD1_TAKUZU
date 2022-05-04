@@ -2,9 +2,8 @@
 #define PROJET_SDD1_TAKUZU_RESOLUTION_AUTO_H
 
 
-int resolve_auto();
+void resolve_auto();
 
-int matrice_remplie();
 
 
 
