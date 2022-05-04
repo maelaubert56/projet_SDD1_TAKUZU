@@ -75,7 +75,6 @@ int menu_resoudre_manuel() {
         size = saisieint();
     }while(size!=4 && size!=8);
 
-    scanf("%d",&size);     //TODO saisie securisée
     generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
 
 
@@ -185,7 +184,7 @@ int menu_generer_grille(){
     while (continuer == 1) {
         clear_screen();
         printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n==>");
-        scanf("%d", &size);
+        size = saisieint();
         size*=4;
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Afficher l'ensemble des lignes et colonnes valides \n");
@@ -196,7 +195,7 @@ int menu_generer_grille(){
         switch (choice) {
             case 1: {
                 afficher_lignes_valides(size);
-                wait_for_enter()
+                wait_for_enter();
                 break;
             }
             case 2: {

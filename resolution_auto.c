@@ -7,7 +7,7 @@
 
 int resolve_auto(){
     // passage de la grille jeu dans un tableau dynamique
-
+    // TODO choix entre 4 et 8
     //faire tableau des matrices
     /*
     int size = 4;

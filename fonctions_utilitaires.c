@@ -5,7 +5,6 @@
 int saisieint() {
     char* str = (char*) malloc(10*sizeof(char));
     fgets(str,10,stdin); //recuperation de la chaine
-
     int result= 0;
     int puiss= 1;
     int no_digit = 1;

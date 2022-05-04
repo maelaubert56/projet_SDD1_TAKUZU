@@ -6,7 +6,7 @@
 #include <conio.h>
 #include "test_matrices.h"
 #include "fonctions_utilitaires.h"
-
+#include <windows.h>
 
 int** generer_masque(int size,int niveau){
     int i,j;
@@ -68,10 +68,14 @@ void resoudre(int **masque, int** solution, int size){
         printf("------------------------------------------\nVies restantes : %d\n",vies);
         // on choisis une case et une valeur
         coords = choisir_case(grille_jeu,size);
-        do{
+
+        printf("\nEntrez la valeur de cette case (0 ou 1):\n");
+        val = saisieint();
+
+        while (val !=1 && val != 0){
             printf("\nEntrez la valeur de cette case (0 ou 1):\n");
             val = saisieint();
-        }while (val !=1 && val != 0);
+        }
 
         //on verifie la validité du coup
         valide = verif_valide(grille_jeu, coords, size, val);
@@ -82,6 +86,7 @@ void resoudre(int **masque, int** solution, int size){
             }
             else {
                 printf("Coup valide.\n");
+                Sleep(500);
                 grille_jeu[coords.i][coords.j] = val;
                 //on regarde si la grille est résolue
                 if (verif_grille(grille_jeu, solution, size) == 1) gagne = 1;
