@@ -90,3 +90,13 @@ int verif_grille(int** grille_jeu,int** grille_soluc,int size){
     }
     return 1;
 }
+
+int test_remplissage(int ** tab,int size) {
+    int i,j;
+    for(i=0;i<size;i++){
+        for(j=0;j<size;j++){
+            if (tab[i][j] == -1) return 0;
+        }
+    }
+    return 1;
+}

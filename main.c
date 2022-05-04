@@ -5,6 +5,12 @@
 #include "resolution.h"
 #include "generateur_grille.h"
 #include <conio.h>
+
+
+
+
+
+
 #include "fonctions_utilitaires.h"
 
 #ifdef _WIN32

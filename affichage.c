@@ -19,7 +19,7 @@ void wait_for_enter(){
     printf("Appuyez sur entrer pour continuer...");
     getchar(); // permet de mettre une pause jusqu'à l'appui sur "entrer" (comme une saisie sans recupere la valeur)
 }
-
+#include <conio.h>
 void afficher_matrice(int **tab,int size,int indice){
     int i,j,k;
     /*printf("----");

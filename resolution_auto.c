@@ -3,20 +3,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "test_matrices.h"
+#include <conio.h>
 
 
 int resolve_auto(){
     // passage de la grille jeu dans un tableau dynamique
     // TODO choix entre 4 et 8
     //faire tableau des matrices
-    /*
+
     int size = 4;
     int jeu[4][4] =    {    {1,-1,-1,-1},
                             {-1,-1,1,-1},
                             {0,-1,1,0},
                             {-1,1,-1,-1}   };
 
-    *//*
+    /*
     int size = 8;
     int jeu[8][8] ={
             {-1,-1,0,-1,-1,-1,1,-1},
@@ -28,7 +29,7 @@ int resolve_auto(){
             {-1,-1,1,-1,-1,-1,-1,1},
             {-1,-1,-1,0,-1,-1,-1,-1}};
     */
-
+/*
     int size = 6;
     int jeu[6][6] = {
             {-1,-1,-1,-1,-1,-1},
@@ -37,7 +38,7 @@ int resolve_auto(){
             {-1,-1,-1,0,-1,-1},
             {0,-1,-1,-1,1,-1},
             {-1,-1,0,0,-1,0}
-    };
+    };*/
 
     int **tab = malloc(sizeof(int*)*size);
     for(int i=0; i<size; i++){
@@ -69,6 +70,9 @@ int resolve_auto(){
         }
         y++;
         x=0;
+        if (x=4 && y=4 && (test_remplissage(tab,size)==0)) {
+            modif_tab(tab)
+        }
     }
     printf("\n\tMatrice resolue ! \n");
     wait_for_enter();

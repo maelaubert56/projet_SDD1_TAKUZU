@@ -4,6 +4,8 @@
 
 int resolve_auto();
 
+int matrice_remplie();
+
 
 
 
