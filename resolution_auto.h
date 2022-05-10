@@ -3,6 +3,7 @@
 
 
 void resolve_auto();
+int modif_mat_bloquee();
 
 
 

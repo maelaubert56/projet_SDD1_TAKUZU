@@ -1,5 +1,5 @@
 #include "test_matrices.h"
-
+#include <stdio.h>
 
 
 int verif_valide(int** grille_jeu, COORDS coords, int size, int val){
@@ -24,7 +24,7 @@ int verif_valide(int** grille_jeu, COORDS coords, int size, int val){
 // tests
 int ligne_remplie(int y,int** tab, int size){ // renvoit -1 si pas remplie, renvoie 0 ou 1 si on a le max de 0 ou de 1
     int i;
-    int tabsomme[3] = {0,0}; // nombre de cases à 0, 1
+    int tabsomme[2] = {0,0}; // nombre de cases à 0, 1
     for(i=0;i<size;i++){
         if (tab[y][i] == 0) tabsomme[0]++;
         else if (tab[y][i] == 1) tabsomme[1]++;
@@ -36,7 +36,7 @@ int ligne_remplie(int y,int** tab, int size){ // renvoit -1 si pas remplie, renv
 
 int colonne_remplie(int x,int** tab, int size){ // renvoit -1 si pas remplie, renvoie 0 ou 1 si on a le max de 0 ou de 1
     int i;
-    int tabsomme[3] = {0,0}; // nombre de cases à 0, 1
+    int tabsomme[2] = {0,0}; // nombre de cases à 0, 1
     for(i=0;i<size;i++){
         if (tab[i][x] == 0) tabsomme[0]++;
         else if (tab[i][x] == 1) tabsomme[1]++;
@@ -47,11 +47,10 @@ int colonne_remplie(int x,int** tab, int size){ // renvoit -1 si pas remplie, re
 }
 
 int test_suite (int y, int x, int** tab, int size){ // renvoie -1 si pas de suite, 0 si suite de 0, 1 si suite de 1
-
-    if ((x > 1) && (tab[y][x-1]==tab[y][x-2])) return tab[y][x-1]; // on test a gauche de la case
-    if ((x < size-2) && (tab[y][x+1]==tab[y][x+2])) return tab[y][x+1]; // on test a droite de la case
-    if ((y > 1) && (tab[y-1][x]==tab[y-2][x])) return tab[y-1][x]; // on test au dessus de la case
-    if ((y < size-2) && (tab[y+1][x]==tab[y+2][x])) return tab[y+1][x]; // on test en dessous de la case
+    if ((x > 1) && (tab[y][x-1]==tab[y][x-2] && tab[y][x-1]!=-1)) return tab[y][x-1]; // on test a gauche de la case
+    if ((x < size-2) && (tab[y][x+1]==tab[y][x+2]) && tab[y][x+1]!=-1) return tab[y][x+1]; // on test a droite de la case
+    if ((y > 1) && (tab[y-1][x]==tab[y-2][x]) && tab[y-1][x]!=-1) return tab[y-1][x]; // on test au dessus de la case
+    if ((y < size-2) && (tab[y+1][x]==tab[y+2][x]) && tab[y+1][x]!=-1) return tab[y+1][x]; // on test en dessous de la case
     return -1;
 }
 
@@ -76,6 +75,8 @@ int test_case(int y, int x, int** tab, int size){
 
     temp = test_autour(y,x,tab,size);
     if (temp!=-1) return (temp+1)%2;
+
+
 
     return -1;
 }
