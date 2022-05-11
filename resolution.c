@@ -8,6 +8,7 @@
 #include "fonctions_utilitaires.h"
 #include <windows.h>
 
+
 int** generer_masque(int size,int niveau){
     int i,j;
     int **masque = malloc(sizeof(int*)*size);

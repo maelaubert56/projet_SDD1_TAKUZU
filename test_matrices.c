@@ -18,7 +18,6 @@ int verif_valide(int** grille_jeu, COORDS coords, int size, int val){
     if ((temp!=-1) && ((temp+1)%2 != val)) return -4;
 
     return 1;
-
 }
 
 // tests
@@ -76,8 +75,6 @@ int test_case(int y, int x, int** tab, int size){
     temp = test_autour(y,x,tab,size);
     if (temp!=-1) return (temp+1)%2;
 
-
-
     return -1;
 }
 
@@ -98,6 +95,42 @@ int test_remplissage(int ** tab,int size) {
         for(j=0;j<size;j++){
             if (tab[i][j] == -1) return 0;
         }
+    }
+    return 1;
+}
+
+int grille_valide(int** grille, int size){
+    if(verif_all_lignes_idd(grille,size)==0) return 0;
+
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size;j++){
+
+            if(ligne_remplie(i,grille,size)==-1) return 0;
+
+            if(colonne_remplie(j,grille,size)==-1)return 0;
+
+            if(test_suite(i,j,grille,size)== grille[i][j])return 0;
+
+            if(test_autour(i,j,grille,size)==grille[i][j])return 0;
+        }
+    }
+    return 1;
+}
+
+
+int verif_all_lignes_idd(int** lignes,int size){
+    for(int i=0;i<size-1;i++){
+        for(int j=i+1;j<size;j++){
+            //printf("\n-%d-%d-\n",i,j);
+            if(verif_tab_id(lignes[i],lignes[j],size)==1) return 0;
+        }
+    }
+    return 1;
+}
+
+int verif_tab_id(int* tab1, int* tab2, int size){
+    for(int i=0;i<size;i++){
+        if(tab1[i]!=tab2[i])return 0;
     }
     return 1;
 }

@@ -32,7 +32,8 @@ void afficher_matrice(int **tab,int size,int indice){
 
         printf("|");
         color(9, 0); // couleur bleu, fond par defaut
-        printf(" %d ", i);
+        if (i<10) printf(" %d ", i);
+        else printf("%d ", i);
         color(15, 0);
     }
     printf("|\n----");

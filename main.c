@@ -5,7 +5,7 @@
 #include "resolution.h"
 #include "generateur_grille.h"
 #include <conio.h>
-
+#include <math.h>
 
 
 
@@ -76,10 +76,11 @@ int menu_resoudre_manuel() {
     char *mode = "auto", *niveau = "facile";
 
     printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
-    printf("\t4 -> 4x4\n\t8 -> 8x8\n==>");
+    printf("\t1 -> 4x4\n\t2 -> 8x8\n\t3 -> 16x16\n==>");
     do{
         size = saisieint();
-    }while(size!=4 && size!=8);
+    }while(size!=1 && size!=2 && size!=3);
+    size = (int)pow(2,size+1);
 
     generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
 
@@ -87,28 +88,73 @@ int menu_resoudre_manuel() {
 
     // TODO tableaux gérérés en dur puis convertis en dynamique pour les tests
 
-    int solution[4][4] = {{1, 0, 0, 1},
+    int soluc4[4][4] = {{1, 0, 0, 1},
                           {1, 0, 1, 0},
                           {0, 1, 1, 0},
                           {0, 1, 0, 1}};
 
-    if (size == 8) {
-        int solution[8][8] = {{0, 1, 0, 1, 1, 0, 0, 1},
-                              {1, 0, 0, 1, 0, 0, 1, 1},
-                              {0, 1, 1, 0, 0, 1, 1, 0},
-                              {1, 1, 0, 0, 1, 1, 0, 0},
-                              {0, 0, 1, 1, 0, 0, 1, 1},
-                              {0, 1, 0, 1, 1, 0, 1, 0},
-                              {1, 0, 1, 0, 1, 1, 0, 0},
-                              {1, 0, 1, 0, 0, 1, 0, 1},
-        };
-    }
 
+    int soluc8[8][8] = {{0, 1, 0, 1, 1, 0, 0, 1},
+                          {1, 0, 0, 1, 0, 0, 1, 1},
+                          {0, 1, 1, 0, 0, 1, 1, 0},
+                          {1, 1, 0, 0, 1, 1, 0, 0},
+                          {0, 0, 1, 1, 0, 0, 1, 1},
+                          {0, 1, 0, 1, 1, 0, 1, 0},
+                          {1, 0, 1, 0, 1, 1, 0, 0},
+                          {1, 0, 1, 0, 0, 1, 0, 1}};
+
+    int soluc16[16][16]= {
+            {1,1,0,0,1,1,0,0,1,0,0,1,1,0,0,1},
+            {0,1,1,0,1,0,1,0,1,0,0,1,0,0,1,1},
+            {0,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0},
+            {1,0,0,1,0,0,1,0,1,0,1,1,0,1,1,0},
+            {0,1,1,0,1,0,1,0,0,1,0,1,0,0,1,1},
+            {0,1,1,0,1,1,0,1,0,1,0,0,1,1,0,0},
+            {1,0,0,1,0,0,1,0,1,0,1,1,0,1,0,1},
+            {1,1,0,1,1,0,0,1,0,0,1,0,1,0,1,0},
+            {0,1,1,0,0,1,1,0,1,1,0,1,0,1,0,0},
+            {1,0,1,0,1,1,0,1,0,1,0,0,1,0,0,1},
+            {0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1},
+            {1,0,0,1,0,1,0,1,0,1,1,0,0,1,1,0},
+            {0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1},
+            {1,1,0,1,1,0,1,0,1,0,0,1,0,0,1,0},
+            {0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,1},
+            {1,0,0,1,0,1,0,1,0,1,1,0,1,1,0,0}   };
+
+
+    int** soluc = malloc(sizeof(int*)*size);
+    //faire tableau des matrices
+    if (size==4){
+        for(int i=0; i<size; i++){
+            soluc[i] = malloc(sizeof(int)*size);
+            for (int j=0; j<size; j++){
+                soluc[i][j]=soluc4[i][j];
+
+            }
+        }
+    }
+    if (size==8) {
+        for(int i=0; i<size; i++){
+            soluc[i] = malloc(sizeof(int)*size);
+            for (int j=0; j<size; j++){
+                soluc[i][j]=soluc8[i][j];
+
+            }
+        }
+    }
+    if (size==16) {
+        for(int i=0; i<size; i++){
+            soluc[i] = malloc(sizeof(int)*size);
+            for (int j=0; j<size; j++){
+                soluc[i][j]=soluc16[i][j];
+            }
+        }
+    }
     int **tab_solution = malloc(sizeof(int*)*size);
     for(int i=0; i<size; i++){
         tab_solution[i] = malloc(sizeof(int)*size);
         for (int j=0; j<size; j++){
-            tab_solution[i][j]=solution[i][j];
+            tab_solution[i][j]=soluc[i][j];
         }
     }
 
@@ -165,6 +211,7 @@ int menu_resoudre_manuel() {
                 printf("Votre masque est :\n");
                 afficher_matrice(masque,size,0);
                 printf("\n");
+                wait_for_enter();
                 break;
             }
             case 3: {
@@ -189,9 +236,9 @@ int menu_generer_grille(){
     int size,choice, continuer = 1;
     while (continuer == 1) {
         clear_screen();
-        printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n==>");
+        printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n\t3 - matrice 16x16\n==>"); //TODO saisie securisee
         size = saisieint();
-        size*=4;
+        size = (int)pow(2,size+1);
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Afficher l'ensemble des lignes et colonnes valides \n");
         printf("\t2 - G%cn%crer une grille de Takuzu\n", 130, 130);
@@ -205,7 +252,8 @@ int menu_generer_grille(){
                 break;
             }
             case 2: {
-                generer_grille(size);
+                afficher_matrice(generer_grille(size),size,1);
+                wait_for_enter();
             }
                 break;
             case 3:{
