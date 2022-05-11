@@ -74,66 +74,47 @@ void afficher_lignes_valides(size){
     printf("\n");
 }
 int** generer_grille(int size){
-    /*
-    int soluc4[4][4] =  {    {1,0,0,1},
-                             {1,0,1,0},
-                             {0,1,1,0},
-                             {0,1,0,1}   };
-    int** soluc = malloc(sizeof(int*)*size);
+    printf("gen_new_version");
+    int **grid = malloc(sizeof(int*)*size);
     for(int i=0; i<size; i++){
-        soluc[i] = malloc(sizeof(int)*size);
+        grid[i] = malloc(sizeof(int)*size);
         for (int j=0; j<size; j++){
-            soluc[i][j]=soluc4[i][j];
+            grid[i][j]=-1;
         }
     }
-    printf("grille valide ? : %d \n", grille_valide(soluc,size));
-    wait_for_enter();*/
-    printf("generation grille");
-    int cpt; // nombre de lignes valides
-    int** lignes = lignes_valides(size,&cpt);
+    gen_grid(grid,0,size);
+    afficher_matrice(grid,size,1);
+    wait_for_enter();
 
-    int** tab = (int**) malloc(sizeof(int*)*size);
-
-
-    int i,j=size-1, continuer = 1;
-
-    int* indices = (int*)malloc(sizeof(int)*size);
-    for(i=0;i<size;i++){
-        indices[i]=0;
-        tab[i]=lignes[0];
-    }
-    int z;
-    printf("cpt=%d\n",cpt);
-
-    srand( time( NULL ) );
-    int random = rand()%cpt;
-    printf("random = %d\n",random);
-    for(i=0;i<random;i++){
-        decaler_lignes_droite(lignes,cpt);
-    }
-    for(i=0;i<size;i++)printf("%d   ",lignes[0][i]);
-
-    while(continuer == 1){
-        printf("\nj=%d  |  indices : %d %d %d %d %d %d %d %d ",j,indices[0],indices[1],indices[2],indices[3],indices[4], indices[5],indices[6],indices[7]);
-        afficher_matrice(tab,size,1);
-        //wait_for_enter();
-        //printf("grille valide ? : %d \n", grille_valide(tab,size));
-        if(grille_valide(tab,size)==1) {
-            return tab;
-        }
-        else{
-            while(indices[j]==cpt-1 && j!=0){
-                indices[j]=0;
-                j--;
-            }
-            indices[j]++;
-            j=size-1;
-        }
-        for(z=0;z<size;z++){
-            tab[z] = lignes[indices[z]];
-        }
-    }
 }
+
+
+int gen_grid(int** grille,int pos,int size){
+
+    //afficher_matrice(grille,size,1);
+    if (pos == size*size)
+        return 1;
+
+    int i = pos/size, j = pos%size;
+    if (grille[i][j] != -1)
+        return gen_grid(grille, pos+1,size);
+
+    for (int k=0; k <= 1; k++)
+    {
+        if (verif_valide_gen(grille,(COORDS){i,j},size,k)==1)
+        {
+            grille[i][j] = k;
+            if (gen_grid(grille, pos+1,size)==1)
+                return 1;
+        }
+    }
+    grille[i][j] = -1;
+    return 0;
+}
+
+
+
+
 
 int** decaler_lignes_droite(int** tab, int size){
     int* temp = tab[size-1];

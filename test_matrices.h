@@ -22,7 +22,10 @@ int test_remplissage(int ** tab,int size);
 
 int verif_grille(int** grille_jeu,int** grille_soluc,int size);
 int verif_valide(int** grille_jeu, COORDS coords, int size, int val);
+int verif_valide_gen(int** grille_jeu, COORDS coords, int size, int val);
 int grille_valide(int** grille, int size);
 int verif_tab_id(int* tab1, int* tab2, int size);
 int verif_all_lignes_idd(int** tab,int size);
+int test_lignes_id(int i,int** grille,int size);
+int test_colonnes_id(int j,int** grille,int size);
 #endif //PROJET_SDD1_TAKUZU_TEST_MATRICES_H

@@ -1,5 +1,34 @@
 #include "test_matrices.h"
 #include <stdio.h>
+#include "affichage.h"
+
+
+int verif_valide_gen(int** grille_jeu, COORDS coords, int size, int val){
+    int temp;
+
+    temp = ligne_remplie(coords.i,grille_jeu,size);
+    if ((temp!=-1) && ((temp+1)%2 != val)) return -1;
+
+    temp = colonne_remplie(coords.j,grille_jeu,size);
+    if ((temp!=-1) && ((temp+1)%2 != val)) return -2;
+
+    temp = test_suite(coords.i,coords.j,grille_jeu,size);
+    if ((temp!=-1) && ((temp+1)%2 != val)) return -3;
+
+    temp = test_autour(coords.i,coords.j,grille_jeu,size);
+    if ((temp!=-1) && ((temp+1)%2 != val)) return -4;
+
+    if(test_lignes_id(coords.i,grille_jeu,size)!=-1) return -5;
+
+    if((coords.i == size-2)&&(coords.j==size-1)){
+        afficher_matrice(grille_jeu,size,1);
+        wait_for_enter();
+    }
+    if((coords.i == size-1)&& test_colonnes_id(coords.j,grille_jeu,size)!=-1) return -6;
+
+
+    return 1;
+}
 
 
 int verif_valide(int** grille_jeu, COORDS coords, int size, int val){
@@ -133,4 +162,35 @@ int verif_tab_id(int* tab1, int* tab2, int size){
         if(tab1[i]!=tab2[i])return 0;
     }
     return 1;
+}
+
+int test_lignes_id(int i,int** grille,int size){
+    for(int k=1;k<i;k++){
+        for(int z=k-1;z>=0;z--){
+            if(verif_tab_id(grille[k],grille[z],size)) return 2;
+        }
+    }
+
+    return -1;
+}
+
+int test_colonnes_id(int j,int** grille,int size){
+
+    int temp;
+    for (int k=1;k<size;k++)
+    {
+        for (int l=1;l<=k;l++){
+            temp=grille[k][l];
+            grille[k][l]=grille[l][k];
+            grille[l][k]=temp;
+        }
+    }
+    for(int k=1;k<j;k++){
+        printf(".");
+        for(int z=k-1;z>=0;z--){
+            printf(";");
+            if(verif_tab_id(grille[k],grille[z],size)) return 2;
+        }
+    }
+    return -1;
 }
