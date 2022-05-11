@@ -69,12 +69,11 @@ void resoudre(int **masque, int** solution, int size){
         printf("------------------------------------------\nVies restantes : %d\n",vies);
         // on choisis une case et une valeur
         coords = choisir_case(grille_jeu,size);
-
+        fflush(stdin);
         printf("\nEntrez la valeur de cette case (0 ou 1):\n");
         val = saisieint();
-
         while (val !=1 && val != 0){
-            printf("\nEntrez la valeur de cette case (0 ou 1):\n");
+            printf("\nEntrezh la valeur de cette case (0 ou 1):\n");
             val = saisieint();
         }
 
@@ -117,7 +116,6 @@ void resoudre(int **masque, int** solution, int size){
         printf("Vous avez epuisé vos 3 vies...\nFin de la partie\n\n");
     }
     wait_for_enter();
-
 }
 
 
@@ -137,6 +135,3 @@ COORDS choisir_case(int** tab, int size){
     printf("\n");
     return coords;
 }
-
-
-
