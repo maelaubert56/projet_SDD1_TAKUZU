@@ -21,11 +21,10 @@ int verif_valide_gen(int** grille_jeu, COORDS coords, int size, int val){
     if(test_lignes_id(coords.i,grille_jeu,size)!=-1) return -5;
 
     if((coords.i == size-2)&&(coords.j==size-1)){
-        afficher_matrice(grille_jeu,size,1);
-        wait_for_enter();
+        //afficher_matrice(grille_jeu,size,1);
+        //wait_for_enter();
     }
-    if((coords.i == size-1)&& test_colonnes_id(coords.j,grille_jeu,size)!=-1) return -6;
-
+    //if((coords.i == size-1)&& test_colonnes_id(coords.j,grille_jeu,size)!=-1) return -6;
 
     return 1;
 }
