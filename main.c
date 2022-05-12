@@ -4,7 +4,6 @@
 #include "affichage.h"
 #include "resolution.h"
 #include "generateur_grille.h"
-#include <conio.h>
 #include <math.h>
 
 
@@ -26,7 +25,7 @@ int menu_generer_grille();
 
 int main(){
     int choix = 0, continuer = 1;
-
+    color(15, 0);
     while (continuer == 1) {
         clear_screen();
         printf("----------------- BIENVENUE SUR NOTRE TAKUZU ! ---------------\n");
@@ -252,8 +251,8 @@ int menu_generer_grille(){
                 break;
             }
             case 2: {
-                afficher_matrice(generer_grille(size),size,1);
-                wait_for_enter();
+                generer_grille(size);
+                continuer = 0;
             }
                 break;
             case 3:{

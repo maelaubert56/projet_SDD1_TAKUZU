@@ -17,7 +17,6 @@ int** generer_masque(int size,int niveau){
         for(j =0;j<size;j++) { masque[i][j] = 0; }
     }
 
-
     srand( time( NULL ) );
     int nb_case;
     switch(niveau){

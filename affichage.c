@@ -2,14 +2,12 @@
 #include <stdio.h>
 #include "affichage.h"
 #include <windows.h>
-#include <conio.h>
 
 void color(int t,int f)
 {
     HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(H,f*16+t);
 }
-
 
 void clear_screen(){
     for(int i=0;i<40;i++){printf("\n");}
@@ -19,7 +17,7 @@ void wait_for_enter(){
     printf("Appuyez sur entrer pour continuer...");
     getchar(); // permet de mettre une pause jusqu'à l'appui sur "entrer" (comme une saisie sans recupere la valeur)
 }
-#include <conio.h>
+
 void afficher_matrice(int **tab,int size,int indice){
     int i,j,k;
     /*printf("----");
