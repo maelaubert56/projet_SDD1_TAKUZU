@@ -21,11 +21,7 @@ int verif_valide_gen(int** grille_jeu, COORDS coords, int size, int val){
     if(test_lignes_id(coords.i,grille_jeu,size)!=-1) return -5;
 
     if((coords.i == size-2)&&(coords.j==size-1)){
-        //afficher_matrice(grille_jeu,size,1);
-        //wait_for_enter();
     }
-    //if((coords.i == size-1)&& test_colonnes_id(coords.j,grille_jeu,size)!=-1) return -6;
-
     return 1;
 }
 
@@ -149,7 +145,6 @@ int grille_valide(int** grille, int size){
 int verif_all_lignes_idd(int** lignes,int size){
     for(int i=0;i<size-1;i++){
         for(int j=i+1;j<size;j++){
-            //printf("\n-%d-%d-\n",i,j);
             if(verif_tab_id(lignes[i],lignes[j],size)==1) return 0;
         }
     }
@@ -170,26 +165,5 @@ int test_lignes_id(int i,int** grille,int size){
         }
     }
 
-    return -1;
-}
-
-int test_colonnes_id(int j,int** grille,int size){
-
-    int temp;
-    for (int k=1;k<size;k++)
-    {
-        for (int l=1;l<=k;l++){
-            temp=grille[k][l];
-            grille[k][l]=grille[l][k];
-            grille[l][k]=temp;
-        }
-    }
-    for(int k=1;k<j;k++){
-        printf(".");
-        for(int z=k-1;z>=0;z--){
-            printf(";");
-            if(verif_tab_id(grille[k],grille[z],size)) return 2;
-        }
-    }
     return -1;
 }

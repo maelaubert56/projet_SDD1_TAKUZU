@@ -66,15 +66,9 @@ void afficher_lignes_valides(size){
             }
         }
     }
-
-    /*
-    for(int i=0;i<(int)pow(2,size);i++){
-        for
-    */
     printf("\n");
 }
 int** generer_grille(int size){
-    printf("gen_new_version");
     int **grid = malloc(sizeof(int*)*size);
     for(int i=0; i<size; i++){
         grid[i] = malloc(sizeof(int)*size);
@@ -83,6 +77,7 @@ int** generer_grille(int size){
         }
     }
     gen_grid(grid,0,size);
+    printf("Matrice %dx%d generee:\n",size,size);
     afficher_matrice(grid,size,1);
     wait_for_enter();
 
