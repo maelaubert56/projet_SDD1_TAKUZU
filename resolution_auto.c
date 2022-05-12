@@ -6,13 +6,13 @@
 #include "fonctions_utilitaires.h"
 
 
-void resolve_auto() {
-    printf("------------ Resolution automatique d'une grille ------------\n");
+void resolve_auto(){
+    printf("------------ R%csolution automatique d'une grille ------------\n",130);
     int continuer_menu = 1;
     int num_taille;
     int size;
-    while (continuer_menu == 1) {
-        printf("Entrez la taille de la matrice a resoudre : \n\t1 - 4*4\n\t2 - 8*8\n\t3 - 16*16\n==>");
+    while(continuer_menu == 1) {
+        printf("Entrez la taille de la matrice à r%csoudre : \n\t1 - 4*4\n\t2 - 8*8\n\t3 - 16*16\n==>",130);
         num_taille = saisieint();
         switch (num_taille) {
             case 1:

@@ -20,14 +20,9 @@ void wait_for_enter() {
 
 void afficher_matrice(int **tab, int size) {
     int i, j, k;
-    /*printf("----");
-    for(i=0;i<size+1;i++){
-        printf("----");
-    }*/
     color(15, 0); // couleur par defaut, fond par defaut
     printf("\n    ");
     for (i = 0; i < size; i++) {
-
         printf("|");
         color(9, 0); // couleur bleu, fond par defaut
         if (i < 10) printf(" %d ", i);

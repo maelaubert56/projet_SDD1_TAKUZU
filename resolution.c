@@ -77,15 +77,15 @@ void resoudre(int **masque, int **solution, int size) {
 
         printf("------------------------------------------\nVies restantes : %d\n", vies);
         // on choisis une case et une valeur
-        coords = choisir_case(grille_jeu, size);
+        coords = choisir_case(grille_jeu,size);
+
         fflush(stdin);
         printf("\nEntrez la valeur de cette case (0 ou 1):\n");
         val = saisieint();
-        while (val != 1 && val != 0) {
-            printf("\nEntrezh la valeur de cette case (0 ou 1):\n");
+        while (val !=1 && val != 0){
+            printf("\nEntrez la valeur de cette case (0 ou 1):\n");
             val = saisieint();
         }
-
         //on verifie la validité du coup
         valide = verif_valide(grille_jeu, coords, size, val);
         if (valide == 1) {
@@ -116,8 +116,6 @@ void resoudre(int **masque, int **solution, int size) {
                     printf("Placer un %d ici provoquerai une suite de plus de 2 fois la valeur %d...", val, val);
                     break;
             }
-            // TODO on affiche un indice pour aider le joueur a se corriger
-            // on lui donne la reponse de l'emplacement testé avant ? d'un autre emplacement ?
         }
         printf("\n");
     }
@@ -138,11 +136,18 @@ COORDS choisir_case(int **tab, int size) {
     char i;
     int j;
     printf("\n");
-    do {
-        afficher_matrice(tab, size);
+    do{
+        if(coords.i != -1) printf("\n Cette case est deja remplie\n");
+        afficher_matrice(tab,size);
         printf("Choisissez la case grace aux indices affiches (ex:A2) :");
-        scanf(" %c%d", &i, &j);       //TODO saisie sécurisée
-        coords.i = (int) (i) - 65;
+        scanf(" %c%d",&i, &j);
+
+        while ((j<0 || j>(size-1)) || ((int)i)<((int)'A') || ((int)i)>(((int)'A')+size-1)){
+            printf("\nChoisissez la case grace aux indices affiches (ex:A2) :\n");
+            scanf(" %c%d",&i, &j);
+        }
+
+        coords.i = (int)(i)-65;
         coords.j = j;
     } while (tab[coords.i][coords.j] != -1);
 

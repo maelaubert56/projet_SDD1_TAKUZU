@@ -67,21 +67,6 @@ void afficher_lignes_valides(size) {
 }
 
 int **generer_grille(int size) {
-    /*
-    int soluc4[4][4] =  {    {1,0,0,1},
-                             {1,0,1,0},
-                             {0,1,1,0},
-                             {0,1,0,1}   };
-    int** soluc = malloc(sizeof(int*)*size);
-    for(int i=0; i<size; i++){
-        soluc[i] = malloc(sizeof(int)*size);
-        for (int j=0; j<size; j++){
-            soluc[i][j]=soluc4[i][j];
-        }
-    }
-    printf("grille valide ? : %d \n", grille_valide(soluc,size));
-    wait_for_enter();*/
-    printf("generation grille");
     int cpt; // nombre de lignes valides
     int **lignes = lignes_valides(size, &cpt);
 

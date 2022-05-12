@@ -10,11 +10,9 @@
 #include "fonctions_utilitaires.h"
 
 #ifdef _WIN32
-
-#include <Windows.h>
-
+    #include <Windows.h>
 #else
-#include <unistd.h>
+    #include <unistd.h>
 #endif
 
 //prototypes:
@@ -81,12 +79,11 @@ int menu_resoudre_manuel() {
     } while (size != 1 && size != 2 && size != 3);
     size = (int) pow(2, size + 1);
 
-    generer_masque(size,
-                   num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
+    generer_masque(size, num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
 
 
 
-    // TODO tableaux gérérés en dur puis convertis en dynamique pour les tests
+
 
     int soluc4[4][4] = {{1, 0, 0, 1},
                         {1, 0, 1, 0},
@@ -236,8 +233,12 @@ int menu_generer_grille() {
     int size, choice, continuer = 1;
     while (continuer == 1) {
         clear_screen();
-        printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n\t3 - matrice 16x16\n==>"); //TODO saisie securisee
+        printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n\t3 - matrice 16x16\n==>");
         size = saisieint();
+        while (size !=1 && size != 2 && size!=3) {
+            printf("\nVous devez saisir un entier entre 1 et 3:\n");
+            size = saisieint();
+        }
         size = (int) pow(2, size + 1);
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Afficher l'ensemble des lignes et colonnes valides \n");
