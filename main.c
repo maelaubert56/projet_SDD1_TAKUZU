@@ -4,28 +4,27 @@
 #include "affichage.h"
 #include "resolution.h"
 #include "generateur_grille.h"
-#include <conio.h>
 #include <math.h>
-
-
-
 
 
 #include "fonctions_utilitaires.h"
 
 #ifdef _WIN32
-    #include <Windows.h>
+
+#include <Windows.h>
+
 #else
-    #include <unistd.h>
+#include <unistd.h>
 #endif
 
 //prototypes:
 int menu_resoudre_manuel();
+
 int menu_generer_grille();
 
 
-int main(){
-    int choix = 0, continuer = 1;
+int main() {
+    int choix, continuer = 1;
 
     while (continuer == 1) {
         clear_screen();
@@ -71,96 +70,97 @@ int main(){
 int menu_resoudre_manuel() {
 
     // valeurs par default si le joueur veut lancer directement
-    int choice, continuer = 1, size = 4, num_niveau=1;
-    int** masque = generer_masque(size,num_niveau);
+    int choice, continuer = 1, size = 4, num_niveau = 1;
+    int **masque = generer_masque(size, num_niveau);
     char *mode = "auto", *niveau = "facile";
 
     printf("------------ Choisisez entre 4x4 ou 8x8 ------------\n");
     printf("\t1 -> 4x4\n\t2 -> 8x8\n\t3 -> 16x16\n==>");
-    do{
+    do {
         size = saisieint();
-    }while(size!=1 && size!=2 && size!=3);
-    size = (int)pow(2,size+1);
+    } while (size != 1 && size != 2 && size != 3);
+    size = (int) pow(2, size + 1);
 
-    generer_masque(size,num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
+    generer_masque(size,
+                   num_niveau); // genere un masque pour eviter un conflit entre la taille de la solution et la taille du masque
 
 
 
     // TODO tableaux gérérés en dur puis convertis en dynamique pour les tests
 
     int soluc4[4][4] = {{1, 0, 0, 1},
-                          {1, 0, 1, 0},
-                          {0, 1, 1, 0},
-                          {0, 1, 0, 1}};
+                        {1, 0, 1, 0},
+                        {0, 1, 1, 0},
+                        {0, 1, 0, 1}};
 
 
     int soluc8[8][8] = {{0, 1, 0, 1, 1, 0, 0, 1},
-                          {1, 0, 0, 1, 0, 0, 1, 1},
-                          {0, 1, 1, 0, 0, 1, 1, 0},
-                          {1, 1, 0, 0, 1, 1, 0, 0},
-                          {0, 0, 1, 1, 0, 0, 1, 1},
-                          {0, 1, 0, 1, 1, 0, 1, 0},
-                          {1, 0, 1, 0, 1, 1, 0, 0},
-                          {1, 0, 1, 0, 0, 1, 0, 1}};
+                        {1, 0, 0, 1, 0, 0, 1, 1},
+                        {0, 1, 1, 0, 0, 1, 1, 0},
+                        {1, 1, 0, 0, 1, 1, 0, 0},
+                        {0, 0, 1, 1, 0, 0, 1, 1},
+                        {0, 1, 0, 1, 1, 0, 1, 0},
+                        {1, 0, 1, 0, 1, 1, 0, 0},
+                        {1, 0, 1, 0, 0, 1, 0, 1}};
 
-    int soluc16[16][16]= {
-            {1,1,0,0,1,1,0,0,1,0,0,1,1,0,0,1},
-            {0,1,1,0,1,0,1,0,1,0,0,1,0,0,1,1},
-            {0,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0},
-            {1,0,0,1,0,0,1,0,1,0,1,1,0,1,1,0},
-            {0,1,1,0,1,0,1,0,0,1,0,1,0,0,1,1},
-            {0,1,1,0,1,1,0,1,0,1,0,0,1,1,0,0},
-            {1,0,0,1,0,0,1,0,1,0,1,1,0,1,0,1},
-            {1,1,0,1,1,0,0,1,0,0,1,0,1,0,1,0},
-            {0,1,1,0,0,1,1,0,1,1,0,1,0,1,0,0},
-            {1,0,1,0,1,1,0,1,0,1,0,0,1,0,0,1},
-            {0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1},
-            {1,0,0,1,0,1,0,1,0,1,1,0,0,1,1,0},
-            {0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1},
-            {1,1,0,1,1,0,1,0,1,0,0,1,0,0,1,0},
-            {0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,1},
-            {1,0,0,1,0,1,0,1,0,1,1,0,1,1,0,0}   };
+    int soluc16[16][16] = {
+            {1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1},
+            {0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1},
+            {0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0},
+            {1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0},
+            {0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1},
+            {0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0},
+            {1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+            {1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0},
+            {0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0},
+            {1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1},
+            {0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1},
+            {1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0},
+            {0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1},
+            {1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0},
+            {0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1},
+            {1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0}};
 
 
-    int** soluc = malloc(sizeof(int*)*size);
+    int **soluc = malloc(sizeof(int *) * size);
     //faire tableau des matrices
-    if (size==4){
-        for(int i=0; i<size; i++){
-            soluc[i] = malloc(sizeof(int)*size);
-            for (int j=0; j<size; j++){
-                soluc[i][j]=soluc4[i][j];
+    if (size == 4) {
+        for (int i = 0; i < size; i++) {
+            soluc[i] = malloc(sizeof(int) * size);
+            for (int j = 0; j < size; j++) {
+                soluc[i][j] = soluc4[i][j];
 
             }
         }
     }
-    if (size==8) {
-        for(int i=0; i<size; i++){
-            soluc[i] = malloc(sizeof(int)*size);
-            for (int j=0; j<size; j++){
-                soluc[i][j]=soluc8[i][j];
+    if (size == 8) {
+        for (int i = 0; i < size; i++) {
+            soluc[i] = malloc(sizeof(int) * size);
+            for (int j = 0; j < size; j++) {
+                soluc[i][j] = soluc8[i][j];
 
             }
         }
     }
-    if (size==16) {
-        for(int i=0; i<size; i++){
-            soluc[i] = malloc(sizeof(int)*size);
-            for (int j=0; j<size; j++){
-                soluc[i][j]=soluc16[i][j];
+    if (size == 16) {
+        for (int i = 0; i < size; i++) {
+            soluc[i] = malloc(sizeof(int) * size);
+            for (int j = 0; j < size; j++) {
+                soluc[i][j] = soluc16[i][j];
             }
         }
     }
-    int **tab_solution = malloc(sizeof(int*)*size);
-    for(int i=0; i<size; i++){
-        tab_solution[i] = malloc(sizeof(int)*size);
-        for (int j=0; j<size; j++){
-            tab_solution[i][j]=soluc[i][j];
+    int **tab_solution = malloc(sizeof(int *) * size);
+    for (int i = 0; i < size; i++) {
+        tab_solution[i] = malloc(sizeof(int) * size);
+        for (int j = 0; j < size; j++) {
+            tab_solution[i][j] = soluc[i][j];
         }
     }
 
     while (continuer == 1) {
         printf("----------------- Resoudre une grille ---------------\n");
-        printf("   Taille : %dx%d\t\tMasque : %s\t\tNiveau : %s\n",size,size, mode, niveau);
+        printf("   Taille : %dx%d\t\tMasque : %s\t\tNiveau : %s\n", size, size, mode, niveau);
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Saisir un masque manuellement \n");
         printf("\t2 - G%cn%crer un masque automatiquement\n", 130, 130);
@@ -175,7 +175,7 @@ int menu_resoudre_manuel() {
                 printf("------------ Entrez le masque ------------\n");
                 masque = remplir_matrice(size);
                 printf("Votre masque est :\n");
-                afficher_matrice(masque,size,0);
+                afficher_matrice(masque, size);
                 printf("\n");
                 break;
             }
@@ -184,7 +184,7 @@ int menu_resoudre_manuel() {
                 mode = "auto";
                 printf("------------ Generation automatique du masque ------------\n");
                 int continuer_menu = 1;
-                while(continuer_menu == 1) {
+                while (continuer_menu == 1) {
                     printf("Entrez le niveau de difficulte : \n\t1 - facile\n\t2 - moyen\n\t3 - difficile\n==>");
                     num_niveau = saisieint();
                     switch (num_niveau) {
@@ -207,15 +207,15 @@ int menu_resoudre_manuel() {
                 }
 
                 printf("Masque genere automatiquement ...\n");
-                masque = generer_masque(size,num_niveau);
+                masque = generer_masque(size, num_niveau);
                 printf("Votre masque est :\n");
-                afficher_matrice(masque,size,0);
+                afficher_matrice(masque, size);
                 printf("\n");
                 wait_for_enter();
                 break;
             }
             case 3: {
-                resoudre(masque,tab_solution,size);
+                resoudre(masque, tab_solution, size);
                 continuer = 0;
                 break;
             }
@@ -232,13 +232,13 @@ int menu_resoudre_manuel() {
     return 0;
 }
 
-int menu_generer_grille(){
-    int size,choice, continuer = 1;
+int menu_generer_grille() {
+    int size, choice, continuer = 1;
     while (continuer == 1) {
         clear_screen();
         printf("Choisir la taille de la matrice\n\t1 - matrice 4x4\n\t2 - matrice 8x8\n\t3 - matrice 16x16\n==>"); //TODO saisie securisee
         size = saisieint();
-        size = (int)pow(2,size+1);
+        size = (int) pow(2, size + 1);
         printf("Veuillez choisir une option : \n");
         printf("\t1 - Afficher l'ensemble des lignes et colonnes valides \n");
         printf("\t2 - G%cn%crer une grille de Takuzu\n", 130, 130);
@@ -252,11 +252,11 @@ int menu_generer_grille(){
                 break;
             }
             case 2: {
-                afficher_matrice(generer_grille(size),size,1);
+                afficher_matrice(generer_grille(size), size);
                 wait_for_enter();
             }
                 break;
-            case 3:{
+            case 3: {
                 continuer = 0;
                 break;
             }
